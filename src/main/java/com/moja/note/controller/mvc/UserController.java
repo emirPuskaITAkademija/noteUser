@@ -3,6 +3,7 @@ package com.moja.note.controller.mvc;
 import com.moja.note.entity.User;
 import com.moja.note.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,9 @@ import java.util.List;
 @Controller
 public class UserController {
 
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     //1. Dispatcher -> preuzme request
     //2. HandlerMapper -> kaže dispatcher servlet -> UserController traži
     //3. @Controller -> UserController http://localhost:8080
@@ -46,7 +50,11 @@ public class UserController {
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("emptyUser") User user){
+        user.setPassword(passwordEncoder.encode("emir123"));
+        user.setRole("USER");
+        user.setUsername("emir");
         userService.saveUser(user);
+
         return "redirect:/";
     }
 }
