@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -23,14 +21,9 @@ import java.util.List;
 @Controller
 public class UserController {
 
-
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    //1. Dispatcher -> preuzme request
-    //2. HandlerMapper -> kaže dispatcher servlet -> UserController traži
-    //3. @Controller -> UserController http://localhost:8080
-    //4. Pozvati bazu i učitati podatke iz baze List<User>
-    //5. setujemo u model objekat te podatke kako bi ih index.html
+
     @Autowired
     private UserService userService;
 
@@ -41,20 +34,27 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/showNewUserForm")
+    @GetMapping("/login")
+    public String login(Model model){
+        return "login";
+    }
+
+    @GetMapping("/register")
     public String showNewUserForm(Model model){
         User user = new User();
         model.addAttribute("emptyUser", user);
-        return "new_user";
+        return "register";
     }
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("emptyUser") User user){
-        user.setPassword(passwordEncoder.encode("emir123"));
-        user.setRole("USER");
-        user.setUsername("emir");
-        userService.saveUser(user);
-
-        return "redirect:/";
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole("USER");
+            userService.saveUser(user);
+            return "redirect:/";
+        }catch (Exception e){
+            return "redirect:/register?error=Bad registration";
+        }
     }
 }

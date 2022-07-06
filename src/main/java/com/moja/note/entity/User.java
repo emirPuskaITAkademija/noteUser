@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Component
+
 @Entity
 @Table(name = "users", schema = "notes")
 public class User implements Serializable {
@@ -25,10 +25,10 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -37,7 +37,7 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
 
-    public User(){
+    public User() {
 
     }
 

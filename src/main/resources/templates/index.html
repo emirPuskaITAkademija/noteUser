@@ -3,13 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>User management</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a th:href="@{/register}" class="btn btn-primary navbar-btn">Add User</a></li>
+        <li>
+            <form th:action="@{/logout}" class="form-inline my-2 my-lg-0" method="post">
+                <button class="btn btn-danger navbar-btn" type="submit">Sign Out</button>
+            </form>
+        </li>
+    </ul>
+    </div>
+</nav>
 <div class="container my-2">
     <h1>User Management</h1>
-    <a th:href="@{/showNewUserForm}" class="btn btn-primary btn-sm mb-3">Add User</a>
+
     <table class="table table-striped table-responsive-md">
         <thead>
         <tr>
